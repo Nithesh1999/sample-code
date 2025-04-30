@@ -17,6 +17,7 @@ ${Remove_Cart}    remove-sauce-labs-backpack
 *** Test Cases ***
 Login To Sample Website
 
+    Sleep    5s
     Set Selenium Implicit Wait    2s
     Open Browser    ${URL}    ${BROWSER}
     Maximize Browser Window
