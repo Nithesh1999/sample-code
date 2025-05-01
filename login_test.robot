@@ -11,13 +11,11 @@ ${BROWSER}    Edge
 ${Add_to_cart}    //button[@id="add-to-cart-sauce-labs-backpack"]  
 ${Cart}    //a[@class="shopping_cart_link"]  
 ${Remove_Cart}    remove-sauce-labs-backpack
-${a}    Nith-esh
 
 *** Keywords ***
 
 *** Test Cases ***
 Login To Sample Website
-
     Set Selenium Implicit Wait    2s
     Open Browser    ${URL}    ${BROWSER}
     Maximize Browser Window
@@ -34,4 +32,4 @@ Login To Sample Website
     Click Element   id=continue-shopping
     Click Element    id=react-burger-menu-btn
     Click Element    id=logout_sidebar_link
-    sleep   5s
+

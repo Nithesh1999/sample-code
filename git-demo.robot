@@ -16,8 +16,6 @@ ${Remove_Cart}    remove-sauce-labs-backpack
 
 *** Test Cases ***
 Login To Sample Website
-
-    Sleep    5s
     Set Selenium Implicit Wait    2s
     Open Browser    ${URL}    ${BROWSER}
     Maximize Browser Window
@@ -34,4 +32,3 @@ Login To Sample Website
     Click Element   id=continue-shopping
     Click Element    id=react-burger-menu-btn
     Click Element    id=logout_sidebar_link
-    sleep   5s
