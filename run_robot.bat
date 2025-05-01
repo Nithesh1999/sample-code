@@ -8,16 +8,35 @@ mkdir results
 echo Starting Robot Framework tests...
 echo Current directory: %CD%
 
-:: Run the correct test file
-"C:\Users\somalaraju.nithesh\AppData\Local\Programs\Python\Python313\Scripts\robot.exe" -d results abc.robot
+:: Check if abc.robot exists
+if not exist abc.robot (
+    echo ERROR: abc.robot not found in %CD%
+    exit /b 1
+)
+
+:: Check if the virtual environment exists
+if not exist venv\Scripts\activate.bat (
+    echo ERROR: Virtual environment not found. Please create the virtual environment first.
+    exit /b 1
+)
+
+:: Activate the virtual environment
+call venv\Scripts\activate.bat
+
+:: Run the test with the virtual environment's robot.exe
+robot -d results abc.robot
 
 :: Ensure WORKSPACE path is available
 if "%WORKSPACE%"=="" (
    set WORKSPACE=C:\ProgramData\Jenkins\.jenkins\workspace\Demo
 )
 
-:: Copy results to Jenkins workspace
-xcopy /Y /E results "%WORKSPACE%\results"
+:: Copy results if present
+if exist results (
+    xcopy /Y /E results "%WORKSPACE%\results"
+) else (
+    echo WARNING: Results directory missing or empty
+)
 
 set EXIT_CODE=%ERRORLEVEL%
 echo Test completed with exit code: %EXIT_CODE%
