@@ -14,6 +14,19 @@ ${INVALID_PASSWORD_DT}    SecretPassword!
 ${LOGIN_BUTTON}      css:button[type="submit"]
 ${SUCCESS_MSG}       id=flash
 ${Browser}    Edge
+${EDGE_DRIVER_PATH}         C:/Program Files (x86)/Microsoft/Edge/Application/msedgedriver.exe
+
+
+*** Keywords ***
+Launch Edge Headless
+    ${options}=    Evaluate    sys.modules['selenium.webdriver'].EdgeOptions()    sys, selenium.webdriver
+    Call Method    ${options}    use_chromium    True
+    Call Method    ${options}    add_argument    --headless
+    Call Method    ${options}    add_argument    --disable-gpu
+    Call Method    ${options}    add_argument    --no-sandbox
+    Call Method    ${options}    add_argument    --disable-dev-shm-usage
+    Open Browser   ${LOGIN_URL}    ${Browser}    executable_path=${EDGE_DRIVER_PATH}    options=${options}
+
 
 *** Test Cases ***
 Valid Username And Valid Password
