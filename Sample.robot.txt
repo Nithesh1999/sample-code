@@ -1,0 +1,42 @@
+*** Settings ***
+Library           SeleniumLibrary
+
+*** Variables ***
+${LOGIN_URL}      https://the-internet.herokuapp.com/login
+${USERNAME_FIELD}    id=username
+${PASSWORD_FIELD}    id=password
+${LOGIN_BUTTON}      css:button[type="submit"]
+${SUCCESS_MSG}       id=flash
+
+*** Test Cases ***
+Valid Username And Valid Password
+    Open Browser    ${LOGIN_URL}    chrome
+    Input Text    ${USERNAME_FIELD}    tomsmith
+    Input Text    ${PASSWORD_FIELD}    SuperSecretPassword!
+    Click Button    ${LOGIN_BUTTON}
+    Element Should Contain    ${SUCCESS_MSG}    You logged into a secure area!
+    Close Browser
+
+Invalid Username And Valid Password
+    Open Browser    ${LOGIN_URL}    chrome
+    Input Text    ${USERNAME_FIELD}    wronguser
+    Input Text    ${PASSWORD_FIELD}    SuperSecretPassword!
+    Click Button    ${LOGIN_BUTTON}
+    Element Should Contain    ${SUCCESS_MSG}    Your username is invalid!
+    Close Browser
+
+Valid Username And Invalid Password
+    Open Browser    ${LOGIN_URL}    chrome
+    Input Text    ${USERNAME_FIELD}    tomsmith
+    Input Text    ${PASSWORD_FIELD}    wrongpassword
+    Click Button    ${LOGIN_BUTTON}
+    Element Should Contain    ${SUCCESS_MSG}    Your password is invalid!
+    Close Browser
+
+Invalid Username And Invalid Password
+    Open Browser    ${LOGIN_URL}    chrome
+    Input Text    ${USERNAME_FIELD}    wronguser
+    Input Text    ${PASSWORD_FIELD}    wrongpassword
+    Click Button    ${LOGIN_BUTTON}
+    Element Should Contain    ${SUCCESS_MSG}    Your username is invalid!
+    Close Browser

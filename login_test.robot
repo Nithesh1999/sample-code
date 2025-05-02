@@ -7,7 +7,7 @@ Test Teardown     Capture Page Screenshot
 ${URL}         https://www.saucedemo.com/
 ${USERNAME}    visual_user
 ${PASSWORD}    secret_sauce
-${BROWSER}    Edge
+${BROWSER}    Chrome
 ${Add_to_cart}    //button[@id="add-to-cart-sauce-labs-backpack"]  
 ${Cart}    //a[@class="shopping_cart_link"]  
 ${Remove_Cart}    remove-sauce-labs-backpack
