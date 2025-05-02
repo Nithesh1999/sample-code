@@ -1,6 +1,6 @@
 *** Settings ***
 Library           SeleniumLibrary
-Test Setup    Open Browser    ${LOGIN_URL}    ${Browser}
+Test Setup    Open Browser And Maximize
 Test Teardown    Close All Browsers
 
 *** Variables ***
@@ -14,8 +14,12 @@ ${INVALID_PASSWORD_DT}    SecretPassword!
 ${LOGIN_BUTTON}      css:button[type="submit"]
 ${SUCCESS_MSG}       id=flash
 ${Browser}    Chrome
+${EMPTY}    
 
 *** Keywords ***
+Open Browser And Maximize
+    Open Browser    ${LOGIN_URL}    ${BROWSER}
+    Maximize Browser Window
 
 *** Test Cases ***
 Valid Username And Valid Password
@@ -42,6 +46,36 @@ Valid Username And Invalid Password
 Invalid Username And Invalid Password
     Input Text    ${USERNAME_FIELD}    ${INVALID_USERNAME_DT}
     Input Text    ${PASSWORD_FIELD}    ${INVALID_PASSWORD_DT}
+    Click Button    ${LOGIN_BUTTON}
+    Sleep    2s
+    Element Should Contain    ${SUCCESS_MSG}    Your username is invalid!
+
+Blank Username And Blank Password
+    Input Text    ${USERNAME_FIELD}    ${EMPTY}        
+    Input Text    ${PASSWORD_FIELD}    ${EMPTY} 
+    Click Button    ${LOGIN_BUTTON}
+    Sleep    2s
+    Element Should Contain    ${SUCCESS_MSG}    Your username is invalid!
+
+
+Blank Username And Valid Password
+    Input Text    ${USERNAME_FIELD}    ${EMPTY}    
+    Input Text    ${PASSWORD_FIELD}    ${VALID_PASSWORD_DT}
+    Click Button    ${LOGIN_BUTTON}
+    Sleep    2s
+    Element Should Contain    ${SUCCESS_MSG}    Your username is invalid!
+
+
+Valid Username And Blank Password
+    Input Text    ${USERNAME_FIELD}    ${VALID_USERNAME_DT}
+    Input Text    ${PASSWORD_FIELD}    ${EMPTY}    
+    Click Button    ${LOGIN_BUTTON}
+    Sleep    2s
+    Element Should Contain    ${SUCCESS_MSG}    Your password is invalid!
+
+Special Characters In Username And Password
+    Input Text    ${USERNAME_FIELD}    !@#$%^&*()
+    Input Text    ${PASSWORD_FIELD}    !@#$%^&*()
     Click Button    ${LOGIN_BUTTON}
     Sleep    2s
     Element Should Contain    ${SUCCESS_MSG}    Your username is invalid!
