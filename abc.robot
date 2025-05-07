@@ -23,8 +23,8 @@ Open Browser And Maximize
 
 *** Test Cases ***
 Valid Username And Valid Password
-    [Documentation]    Check Positive login Scenario 
-    [Tags]    1   
+    [Documentation]    Nithesh 
+    [Tags]    First   
     Input Text    ${USERNAME_FIELD}    ${VALID_USERNAME_DT}
     Input Text    ${PASSWORD_FIELD}    ${VALID_PASSWORD_DT} 
     Click Button    ${LOGIN_BUTTON}
